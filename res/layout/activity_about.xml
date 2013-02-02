@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/premises_header"
+        android:layout_alignParentTop="true"
+        android:id="@+id/text_view_about_title1" />
+
+    <TextView
+        android:id="@+id/text_view_howto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/howto_title"
+        android:layout_below="@id/text_view_about_title1" />
+    
+    <TextView
+        android:id="@+id/text_view_howto_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/howto_info"
+        android:textSize="16sp"
+        android:layout_below="@id/text_view_howto" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_alignParentBottom="true" >
+        
+        <Button 
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/button4"
+			android:onClick="previousPage" />
+        
+        <Button 
+            android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="@string/button5"
+			android:onClick="nextPage" />
+    </LinearLayout>
+
+</RelativeLayout>

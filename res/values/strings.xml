@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Mood Mapper</string>
+    <string name="no_mood">No moods added yet!\nClick the + to add something.</string>
+    <string name="menu_settings">Settings</string>
+    <string name="button1">Review</string>
+    <string name="button2">+</string>
+    <string name="button3">-</string>
+    <string name="button4">previous</string>
+    <string name="button5">next</string>
+    <string name="button6">Log without Trigger</string>
+    <string name="review">Daily Review</string>
+    <string name="history">History</string>
+    <string name="about">About</string>
+    <string name="new_list">New List</string>
+    <string name="clear_list">Clear List</string>
+    <string name="title_activity_about">General Info</string>
+    <string name="howto_title">How to use:</string>
+    <string name="howto_info">
+        \tClick the \"+\" symbol in the upper right corner to add a new emotion to the list.
+        Once added, it will appear as a button on the list for easy access. Use the \"–\" symbol to delete items 
+        from the list that are no longer being used. \n\n
+        
+        \tIf the emotion you want to log is on your list, click it to create a log entry. A new list will 
+        appear for you to populate with your common triggers\n\n
+        
+        \tClick “Review” to switch to Daily Review mode. This shows a timeline of all your emotions throughout the day. 
+        To see past reviews, swipe left to go back in time one day, and right to go forward.</string>
+    <string name="premises_header">Mapping Guidelines</string>
+    <string name="premise1">1. Create your own emotions and triggers</string>
+    <string name="premise1_text">\tInstead of using a pre-generated list of emotions or triggers, you are 
+        encouraged to look within and discover what you feel for yourself, instead relying on cliche emotional 
+        labels. Every emotion or trigger you add to the lists is saved for future use. As human beings, we tend 
+        to exhibit habitual repetitive emotional patterns. By maintaining a saved list of individually 
+        generated emotions and triggers, MoodMapper can aid us in discovering and understanding our habitual 
+        patterns</string>
+    <string name="premise2">2. Keep refining your emotion and trigger lists</string>
+    <string name="premise2_text">\tEmotional awareness is not an easy task, but with practice we 
+        are bound to improve at it. As your emotional discernment grows, be willing to clean up your lists 
+        of unused or irrelevant items in order to see more clearly the repeating patterns. The idea is not to 
+        collect as many emotions as possible, but to understand the patterns that drive us at a deep level.</string>
+    <string name="premise3">3. Learn to recognize emotions by their \"flavor\"</string>
+    <string name="premise3_text">\tEach emotion you add to the list should have its own distinct 
+        \"flavor\". Often these "flavors" don\'t have a convenient label from everyday language that captures 
+        all of their nuance. That is another reason for creating our own list of emotions instead of using 
+        ready-made lists. The idea is to find a unique label for each distinct flavor of emotion you recognize. 
+        Gradually these emotions that once seemed vague and unrecognizable, will become clear and familiar, 
+        just as unfamiliar vocabulary gradually becomes known through repeated encounters, even without 
+        looking it up.</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_daily_review">Daily Review</string>
+    <string name="title_activity_trigger">Trigger List</string>
+    <string name="empty_main">\tNo emotions entered yet, press the \"+\" to add a new 
+        mood. For information about how to use this app, select \"about\" from the menu.</string>
+    <string name="empty_trigger">Press the \"+\" to add a new trigger</string>
+    <string name="empty_review">Nothing has been mapped for this date</string>
+
+</resources>
