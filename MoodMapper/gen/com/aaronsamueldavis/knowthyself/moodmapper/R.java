@@ -15,17 +15,20 @@ public final class R {
     }
     public static final class id {
         public static final int buttons=0x7f070004;
-        public static final int column1=0x7f070013;
-        public static final int column2=0x7f070014;
-        public static final int column_time=0x7f070012;
+        public static final int column1=0x7f070016;
+        public static final int column2=0x7f070017;
+        public static final int column_time=0x7f070015;
+        public static final int intensity_dialog=0x7f07000f;
+        public static final int intensity_tracker=0x7f070010;
         public static final int left_top_button=0x7f07000b;
         public static final int list_title=0x7f07000e;
-        public static final int menu_settings=0x7f070015;
+        public static final int menu_settings=0x7f070018;
         public static final int middle_top_button=0x7f07000c;
-        public static final int review_date=0x7f070010;
-        public static final int review_row=0x7f070011;
+        public static final int review_date=0x7f070013;
+        public static final int review_row=0x7f070014;
         public static final int right_top_button=0x7f07000d;
-        public static final int text1=0x7f07000f;
+        public static final int seekbar=0x7f070011;
+        public static final int text1=0x7f070012;
         public static final int text_view_about_title1=0x7f070000;
         public static final int text_view_about_title2=0x7f070003;
         public static final int text_view_howto=0x7f070001;
@@ -42,9 +45,10 @@ public final class R {
         public static final int activity_about_premises=0x7f030001;
         public static final int activity_daily_review=0x7f030002;
         public static final int activity_list=0x7f030003;
-        public static final int list_row=0x7f030004;
-        public static final int review_header_row=0x7f030005;
-        public static final int review_row=0x7f030006;
+        public static final int intensity=0x7f030004;
+        public static final int list_row=0x7f030005;
+        public static final int review_header_row=0x7f030006;
+        public static final int review_row=0x7f030007;
     }
     public static final class menu {
         public static final int activity_about=0x7f060000;

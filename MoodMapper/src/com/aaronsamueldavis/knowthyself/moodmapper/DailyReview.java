@@ -171,7 +171,7 @@ public class DailyReview extends ListActivity implements OnClickListener{
 			
 			// for each cursor item, create an array entry
 			for (int i = 0; i < numRows; i++) {	
-				data[i] = new EntryData(hour, minute, cursor.getInt(i));
+				data[i] = new EntryData(hour, minute);
 				data[i].emotion = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_ENTRY));
 				data[i].trigger = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TRIGGER));
 				Log.i(TAG, "hour = " + data[i].hour + " minute = " + data[i].minute +

@@ -86,20 +86,40 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
         holder.emotion.setText(currentEntry.emotion);
         holder.trigger.setText(currentEntry.trigger);
         
-        //holder.time.setBackgroundColor(pickRandom(colors));
-        //holder.emotion.setBackgroundColor(pickRandom(colors));
-        //holder.trigger.setBackgroundColor(pickRandom(colors));
+        holder.time.setBackgroundColor(intensity(currentEntry.intensity));
+        holder.emotion.setBackgroundColor(intensity(currentEntry.intensity));
+        holder.trigger.setBackgroundColor(intensity(currentEntry.intensity));
         
         return rowView;
     }
+    
     protected static class EntryHolder
     {
     	TextView time;
         TextView emotion;
         TextView trigger;
     }
-    public static int pickRandom (int[] array) {
+    
+    public int pickRandom (int[] array) {
         int rnd = generator.nextInt(array.length);
         return array[rnd];
     }
+    
+    public int intensity(int value) {
+    	switch (value) {
+    	case 0: return 0xFFFFFF;
+    	case 1: return 0x00FFBF;
+    	case 2: return 0x00FF80;
+    	case 3: return 0x00FF40;
+    	case 4: return 0x00FF00;
+    	case 5: return 0x40FF00;
+    	case 6: return 0x80FF00;
+    	case 7: return 0xBFFF00;
+    	case 8: return 0xFFFF00;
+    	case 9: return 0xFFBF00;
+    	case 10: return 0xFF0000;
+    	default: return 0;
+    	}
+    }
+    
 }

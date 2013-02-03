@@ -9,14 +9,17 @@ import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
@@ -27,10 +30,10 @@ public class MainActivity extends ListActivity {
 	private boolean deleteMode;
 	private String mEmotion;
 	private String mTrigger;
+	private int mIntensity;
 	private TextView mTitleView;
 	private TextView mEmptyView;
 	private Button mButton;
-	//private Context mContext;
 	
 	public final static String EXTRA_MESSAGE = "com.example.testMapper.MESSAGE";
 	public final static String TAG = "MainActivity";
@@ -103,6 +106,7 @@ public class MainActivity extends ListActivity {
 			switch (displayListView) {
 			case EMOTION:
 				mEmotion = item;
+				showIntensity();
 				loadList(TRIGGER);
 				break;
 			case TRIGGER:
@@ -127,7 +131,7 @@ public class MainActivity extends ListActivity {
 	}
 	
 	private void addEntry(View view) {
-		mDbHelper.addEntry(mEmotion, mTrigger);
+		mDbHelper.addEntry(mEmotion, mTrigger, mIntensity);
 		successAlert(view);
 	}
 
@@ -180,9 +184,11 @@ public class MainActivity extends ListActivity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String addition = input.getText().toString();
-				if (displayListView == EMOTION)
+				if (addition == "");
+					// do nothing, don't add empty string
+				else if (displayListView == EMOTION)
 					mDbHelper.addMood(addition);
-				if (displayListView == TRIGGER)
+				else if (displayListView == TRIGGER)
 					mDbHelper.addTrigger(addition);
 				loadList(displayListView);
 			}
@@ -272,5 +278,50 @@ public class MainActivity extends ListActivity {
 			}
 		});
 		alert.show();
+	}
+	
+	public void showIntensity()
+	{
+		final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);		
+		final LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+		final View dialogLayout = inflater.inflate(R.layout.intensity, (ViewGroup) findViewById(R.id.intensity_dialog));
+		
+		final TextView tv = (TextView) dialogLayout.findViewById(R.id.intensity_tracker);
+		
+		popDialog.setIcon(R.drawable.ic_launcher);
+		popDialog.setTitle("How intense is the emotion?");
+		popDialog.setView(dialogLayout);
+		
+		
+		
+		SeekBar seek = (SeekBar) dialogLayout.findViewById(R.id.seekbar);
+		seek.setMax(10);
+		seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			
+		    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		        mIntensity = progress;
+		        tv.setText("Intensity: " + progress);
+		    }
+
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub				
+			}
+
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub	
+			}
+		});
+		 
+
+		// Button OK
+		popDialog.setPositiveButton("OK",
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			});
+
+		popDialog.create();
+		popDialog.show();       
 	}
 }

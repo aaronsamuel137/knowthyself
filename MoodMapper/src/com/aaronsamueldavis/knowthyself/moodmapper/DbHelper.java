@@ -25,6 +25,7 @@ public class DbHelper {
     public static final String KEY_DAY = "day";
     public static final String KEY_ENTRY = "entry";
     public static final String KEY_TRIGGER = "trigger"; //used for trigger table too
+    public static final String KEY_INTENSITY = "intensity";
     
     // table names
     public static final String TABLE_EMOTION = "emotions";
@@ -42,7 +43,7 @@ public class DbHelper {
     private static final String ENTRY_TABLE_CREATE =
             "create table entries (_id integer primary key autoincrement, "
             + "hour integer not null, minute integer not null, entry text not null, "
-            + "trigger text, day text not null);";
+            + "trigger text, day text not null, intensity integer);";
     
     private static final String TRIGGER_TABLE_CREATE =
             "create table triggers (_id integer primary key autoincrement, "
@@ -141,7 +142,7 @@ public class DbHelper {
 	}
     
 	  
-	public long addEntry(String entry, String trigger) {
+	public long addEntry(String entry, String trigger, int intensity) {
 		ContentValues initialValues = new ContentValues();
 		  
 		// get current time from device
@@ -155,6 +156,7 @@ public class DbHelper {
 	    initialValues.put(KEY_MINUTE, minute);
 	    initialValues.put(KEY_TRIGGER, trigger);
 	    initialValues.put(KEY_DAY, day);
+	    initialValues.put(KEY_INTENSITY, intensity);
 	    return mDb.insert(TABLE_ENTRY, null, initialValues);
 	}
 	  
