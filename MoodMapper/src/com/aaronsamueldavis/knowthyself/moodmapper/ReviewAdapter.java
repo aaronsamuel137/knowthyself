@@ -1,9 +1,12 @@
 package com.aaronsamueldavis.knowthyself.moodmapper;
 
 import java.util.Random;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
+@SuppressLint("NewApi")
 public class ReviewAdapter extends ArrayAdapter<EntryData> {
 	 
 	private final Context mContext;
     private final EntryData mData[];
     private static final String TAG = "ReviewAdapter";
     private static Random generator;
+    private static Typeface mTf;
     //private static final int colors[] = {0xFF4D4D, 0x3838BC, 0x389BBC, 0x339933, 0xFF7519, 0xC46CC4, 0x894C89, 0xDA91FF};
     
     public ReviewAdapter(Context context, int resource, EntryData data[]) {
@@ -24,6 +29,7 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
 		mData = data;
 		mContext = context;
 		generator = new Random();
+		
 	}
 
     @Override
@@ -36,10 +42,9 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
             // Get a new instance of the row layout view
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             rowView = inflater.inflate(R.layout.review_row, null);
+            mTf = Typeface.createFromAsset(rowView.getContext().getAssets(), "fonts/Dinax27s_Handwriting.ttf");
             
-            
-            
- 
+
             // Hold the view objects in an object,
             // so they don't need to be re-fetched
             
@@ -47,6 +52,7 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
             holder.time = (TextView) rowView.findViewById(R.id.column_time);
 	        holder.emotion = (TextView) rowView.findViewById(R.id.column1);
 	        holder.trigger = (TextView) rowView.findViewById(R.id.column2);
+	        holder.intensity = (TextView) rowView.findViewById(R.id.column_intensity);
 
             // Cache the view objects in the tag,
             // so they can be re-accessed later
@@ -58,22 +64,24 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
         // Transfer the stock data from the data object
         // to the view objects
         EntryData currentEntry = mData[position];
-        //if (currentEntry.minute == 0)
-        	//holder.time.setText(Integer.toString(currentEntry.hour) + ":00");
-        //else
-        Log.e(TAG, "hour = " + currentEntry.hour + " minute = " + currentEntry.minute +
-        	" emotion = " + currentEntry.emotion + " trigger = " + currentEntry.trigger);
         
 		String minute;
         String hour;
         String am_pm;
         if (currentEntry.hour > 12) {
         	hour = Integer.toString(currentEntry.hour - 12);
-        	am_pm = " pm";
+            am_pm = " pm";
+        }    
+        else if (currentEntry.hour == 0) {
+        	hour = "12";
+        	am_pm = " am";
         }
         else {
         	hour = Integer.toString(currentEntry.hour);
-        	am_pm = " am";
+        	if (currentEntry.hour == 12)
+        		am_pm = " pm";
+        	else
+        		am_pm = " am";
         }
         if (currentEntry.minute == 0)
         	minute = "00";
@@ -83,12 +91,26 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
         	minute = Integer.toString(currentEntry.minute);
         
         holder.time.setText(hour + ":" + minute + am_pm);
-        holder.emotion.setText(currentEntry.emotion);
-        holder.trigger.setText(currentEntry.trigger);
+        holder.emotion.setText((currentEntry.emotion).toUpperCase());
+        if (currentEntry.trigger != null && currentEntry.trigger != "") {
+        	holder.trigger.setText("Trigger: " + currentEntry.trigger);   
+        	holder.trigger.setTypeface(mTf);
+        }
+        else
+        	holder.trigger.setText("");
+        if (currentEntry.intensity != 0) {
+        	holder.intensity.setText(Integer.toString(currentEntry.intensity));
+        	holder.intensity.setTypeface(mTf);
+        }
+        else
+        	holder.intensity.setText("");
         
-        holder.time.setBackgroundColor(intensity(currentEntry.intensity));
-        holder.emotion.setBackgroundColor(intensity(currentEntry.intensity));
-        holder.trigger.setBackgroundColor(intensity(currentEntry.intensity));
+        holder.time.setTypeface(mTf);
+        holder.emotion.setTypeface(mTf);
+        
+        
+        
+        rowView.getBackground().setColorFilter(intensity(currentEntry.intensity), PorterDuff.Mode.ADD);
         
         return rowView;
     }
@@ -98,6 +120,7 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
     	TextView time;
         TextView emotion;
         TextView trigger;
+        TextView intensity;
     }
     
     public int pickRandom (int[] array) {
@@ -107,19 +130,19 @@ public class ReviewAdapter extends ArrayAdapter<EntryData> {
     
     public int intensity(int value) {
     	switch (value) {
-    	case 0: return 0xFFFFFF;
-    	case 1: return 0x00FFBF;
-    	case 2: return 0x00FF80;
-    	case 3: return 0x00FF40;
-    	case 4: return 0x00FF00;
-    	case 5: return 0x40FF00;
-    	case 6: return 0x80FF00;
-    	case 7: return 0xBFFF00;
-    	case 8: return 0xFFFF00;
-    	case 9: return 0xFFBF00;
-    	case 10: return 0xFF0000;
+    	case 0: return 0x00FFFF00;
+    	case 1: return 0x08FFFF00;
+    	case 2: return 0x10FFFF00;
+    	case 3: return 0x18FFFF00;
+    	case 4: return 0x20FFFF00;
+    	case 5: return 0x28FFFF00;
+    	case 6: return 0x30FFFF00;
+    	case 7: return 0x38FFFF00;
+    	case 8: return 0x40FFFF00;
+    	case 9: return 0x48FFFF00;
+    	case 10: return 0x50FFFF00;
     	default: return 0;
     	}
     }
-    
+
 }

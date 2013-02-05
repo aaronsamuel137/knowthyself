@@ -4,7 +4,9 @@ import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
@@ -15,10 +17,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class DailyReview extends ListActivity implements OnClickListener{
+public class DailyReview extends ListActivity /*implements OnClickListener*/{
 
 	private DbHelper mDbHelper;
 	private static final String TAG = "ReviewActivity";
@@ -55,12 +58,14 @@ public class DailyReview extends ListActivity implements OnClickListener{
 		//mHeaderText.setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
 		mListView.addHeaderView(header);
 		
-	    gestureDetector = new GestureDetector(this,	new SwipeGestureDetector());
+	    
+		// For potential swipe implementation
+		/*gestureDetector = new GestureDetector(this,	new SwipeGestureDetector());
 	    gestureListener = new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 return gestureDetector.onTouchEvent(event);
             }
-        };
+        };*/
         
 		mDbHelper = new DbHelper(this);
 		mDbHelper.open();
@@ -81,6 +86,8 @@ public class DailyReview extends ListActivity implements OnClickListener{
 			ReviewAdapter adapter = new ReviewAdapter(this, R.layout.review_row, entries);
 			mHeaderText.setText("Daily Review: " + getDateString());
 			mListView.setAdapter(adapter);
+			
+			//Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Dinax27s_Handwriting.ttf");
 		}
 	}
 		
@@ -93,17 +100,18 @@ public class DailyReview extends ListActivity implements OnClickListener{
 	    return super.onTouchEvent(event);
 	  }
 
-	  private void onLeftSwipe() {
+	
+	public void tomorrowButton(View view) {
 		  getTomorrow();
 		  mEmptyView.setText("Nothing logged for " + getDateString());
 		  setViewByDay(getDateString());
 	  }
 
-	  void onRightSwipe() {
+	public void yesterdayButton(View view) {
 		  getYesterday();
 		  mEmptyView.setText("Nothing logged for " + getDateString());
 		  setViewByDay(getDateString());
-	  }
+	}
 	
 	@Override
 	protected void onPause() {
@@ -128,6 +136,8 @@ public class DailyReview extends ListActivity implements OnClickListener{
 	@Override
 	protected void onRestart() {
 	    super.onRestart();
+	    Intent i = new Intent(this, MainActivity.class);
+    	startActivity(i);
 	}
 
 
@@ -165,7 +175,6 @@ public class DailyReview extends ListActivity implements OnClickListener{
 			int minute = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_MINUTE));
 			String timeString = Integer.toString(hour) + ":" + Integer.toString(minute);
 			float timeFloat = hour + (minute/60);
-			//int i = (int) Math.floor(timeFloat);
 			
 			Log.e(TAG, "time = " + Float.toString(timeFloat));
 			
@@ -174,8 +183,7 @@ public class DailyReview extends ListActivity implements OnClickListener{
 				data[i] = new EntryData(hour, minute);
 				data[i].emotion = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_ENTRY));
 				data[i].trigger = cursor.getString(cursor.getColumnIndex(DbHelper.KEY_TRIGGER));
-				Log.i(TAG, "hour = " + data[i].hour + " minute = " + data[i].minute +
-			        	" emotion = " + data[i].emotion + " trigger = " + data[i].trigger);
+				data[i].intensity = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_INTENSITY));
 				if (cursor.moveToNext() && !cursor.isAfterLast()) {
 					hour = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_HOUR));
 					minute = cursor.getInt(cursor.getColumnIndex(DbHelper.KEY_MINUTE));
@@ -235,7 +243,8 @@ public class DailyReview extends ListActivity implements OnClickListener{
 		else day += 1;
 	}
 	
-
+	// For potential swipe implementation
+	/*
 	//Private class for gestures
 	public class SwipeGestureDetector
 	       extends SimpleOnGestureListener {
@@ -267,10 +276,15 @@ public class DailyReview extends ListActivity implements OnClickListener{
 	    	 DailyReview.this.onRightSwipe();
 	     }
 	   } catch (Exception e) {
-		   Log.e("YourActivity", "Error on gestures");
+		   Log.e(TAG, "Error on gestures");
 	   }
 	   return false;
 	}
+	 
+	 @Override
+	    public boolean onDown(MotionEvent e) {
+	        return true;
+	    }
 	}
 
 
@@ -279,4 +293,16 @@ public class DailyReview extends ListActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		
 	}
+	private void onLeftSwipe() {
+		getTomorrow();
+		mEmptyView.setText("Nothing logged for " + getDateString());
+		setViewByDay(getDateString());
+	}
+
+	void onRightSwipe() {
+		getYesterday();
+		mEmptyView.setText("Nothing logged for " + getDateString());
+		setViewByDay(getDateString());
+	}
+	*/
 }

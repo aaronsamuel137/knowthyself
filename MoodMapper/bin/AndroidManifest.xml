@@ -30,6 +30,10 @@
             android:name="com.aaronsamueldavis.knowthyself.moodmapper.About"
             android:label="@string/title_activity_about" >
         </activity>
+        <activity
+            android:name="com.aaronsamueldavis.knowthyself.moodmapper.MenuActivity"
+            android:label="@string/title_activity_menu" >
+        </activity>
     </application>
 
 </manifest>

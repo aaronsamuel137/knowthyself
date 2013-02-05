@@ -17,8 +17,7 @@
     <string name="clear_list">Clear List</string>
     <string name="title_activity_about">General Info</string>
     <string name="howto_title">How to use:</string>
-    <string name="howto_info">
-        \tClick the \"+\" symbol in the upper right corner to add a new emotion to the list.
+    <string name="howto_info">        \tClick the \"+\" symbol in the upper right corner to add a new emotion to the list.
         Once added, it will appear as a button on the list for easy access. Use the \"–\" symbol to delete items 
         from the list that are no longer being used. \n\n
         
@@ -55,5 +54,10 @@
         mood. For information about how to use this app, select \"about\" from the menu.</string>
     <string name="empty_trigger">Press the \"+\" to add a new trigger</string>
     <string name="empty_review">Nothing has been mapped for this date</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

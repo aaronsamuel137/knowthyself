@@ -104,24 +104,18 @@ public class DbHelper {
     }
     
     public Cursor fetchAllItems(String table, String column) {
-		//return mDb.rawQuery("SELECT emotion FROM emotions ORDER BY emotion", null);
     	return mDb.query(table, new String[] {KEY_ROWID, column}
-                , null, null, null, null, null);
-    }
-    
-    public Cursor fetchAllTriggers() {
-		//return mDb.rawQuery("SELECT emotion FROM emotions ORDER BY emotion", null);
-    	return mDb.query(TABLE_TRIGGER, new String[] {KEY_ROWID, KEY_TRIGGER}
-                , null, null, null, null, null);
-    }
+                , column + "<>?", new String[] {""}, null, null, column);
+    }   
     
     public Cursor fetchReview(String day) {
-		//return mDb.rawQuery("SELECT emotion FROM emotions ORDER BY emotion", null);
-    	return mDb.query(TABLE_ENTRY, new String[] {KEY_ROWID, KEY_HOUR, KEY_MINUTE, KEY_ENTRY, KEY_TRIGGER, KEY_DAY}
+    	return mDb.query(TABLE_ENTRY, new String[] {KEY_ROWID, KEY_HOUR, KEY_MINUTE, KEY_ENTRY, KEY_TRIGGER, KEY_INTENSITY, KEY_DAY}
                 , KEY_DAY + "=?", new String[] {day}, null, null, null);
     }
 	  
     public long addMood(String emotion) {
+    	if (emotion == "")
+        	return -1; // don't add empty string to database
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_EMOTION, emotion);
         return mDb.insert(TABLE_EMOTION, null, initialValues);
@@ -132,13 +126,11 @@ public class DbHelper {
 	}
     
     public long addTrigger(String trigger) {
+    	if (trigger == "")
+        	return -1; // don't add empty string to database
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_TRIGGER, trigger);
         return mDb.insert(TABLE_TRIGGER, null, initialValues);
-	}
-    
-    public boolean deleteTrigger(String trigger) {
-    	return mDb.delete(TABLE_TRIGGER, KEY_TRIGGER + "='" + trigger + "'", null) > 0;
 	}
     
 	  

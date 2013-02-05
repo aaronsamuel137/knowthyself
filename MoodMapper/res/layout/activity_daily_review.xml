@@ -1,21 +1,50 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:layout_height="match_parent" >
  
+    <LinearLayout
+        android:id="@+id/review_buttons"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:layout_alignParentBottom="true" >
+    
+	    <Button 
+	        android:id="@+id/yesterday"
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="yesterday"
+			android:onClick="yesterdayButton" />
+	        
+	    <Button 
+	        android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="tomorrow"
+			android:onClick="tomorrowButton" />
+	   
+	</LinearLayout>
     
     <ListView
     	android:id="@id/android:list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#FFFFFF"
+        android:dividerHeight="2dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/review_buttons" />"
  
     <TextView
         android:id="@id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="@string/empty_review"
         android:gravity="center"
         android:textSize="20sp" />
-
-</LinearLayout>
+    
+    
+</RelativeLayout>

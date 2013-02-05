@@ -49,6 +49,13 @@ public class About extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
+	protected void onRestart() {
+	    super.onRestart();
+	    Intent i = new Intent(this, MainActivity.class);
+    	startActivity(i);
+	}
+	
 	public void previousPage(View view) {
 		switch (currentPage) {
 		case ABOUT_PAGE_1:

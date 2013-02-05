@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:layout_height="match_parent"
+    android:background="@drawable/list_background" >
     
     <LinearLayout
+        android:id="@+id/button_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true" >
         
         <Button
             android:id="@+id/left_top_button"
@@ -38,18 +40,26 @@
         android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:textSize="24sp"
-    	android:gravity="center" />
-
+    	android:gravity="center"
+    	android:layout_below="@id/button_row" />
+    
  	<ListView
     	android:id="@id/android:list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
- 
+    	android:padding="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+    	android:layout_marginRight="6dp"
+    	android:cacheColorHint="#FFFFFF"
+    	android:layout_below="@id/list_title" />
+ 	
     <TextView
         android:id="@id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:textSize="20sp" />
         	
-</LinearLayout>
+</RelativeLayout>

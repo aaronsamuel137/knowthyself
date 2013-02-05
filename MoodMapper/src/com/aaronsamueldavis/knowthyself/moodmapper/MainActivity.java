@@ -34,6 +34,7 @@ public class MainActivity extends ListActivity {
 	private TextView mTitleView;
 	private TextView mEmptyView;
 	private Button mButton;
+	//private Context mContext;
 	
 	public final static String EXTRA_MESSAGE = "com.example.testMapper.MESSAGE";
 	public final static String TAG = "MainActivity";
@@ -106,8 +107,8 @@ public class MainActivity extends ListActivity {
 			switch (displayListView) {
 			case EMOTION:
 				mEmotion = item;
-				showIntensity();
-				loadList(TRIGGER);
+				mIntensity = 0;
+				showTriggerPrompt();
 				break;
 			case TRIGGER:
 				mTrigger = item;
@@ -184,11 +185,9 @@ public class MainActivity extends ListActivity {
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String addition = input.getText().toString();
-				if (addition == "");
-					// do nothing, don't add empty string
-				else if (displayListView == EMOTION)
+				if (displayListView == EMOTION)
 					mDbHelper.addMood(addition);
-				else if (displayListView == TRIGGER)
+				if (displayListView == TRIGGER)
 					mDbHelper.addTrigger(addition);
 				loadList(displayListView);
 			}
@@ -245,6 +244,7 @@ public class MainActivity extends ListActivity {
 			mButton.setText("Log without Trigger");
 			mButton.setOnClickListener(new OnClickListener() {
 				public void onClick(View view) {
+					mTrigger = null;
 					addEntry(view);
 				}
 			});
@@ -280,48 +280,68 @@ public class MainActivity extends ListActivity {
 		alert.show();
 	}
 	
-	public void showIntensity()
+	public void showTriggerPrompt()
 	{
-		final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);		
-		final LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
-		final View dialogLayout = inflater.inflate(R.layout.intensity, (ViewGroup) findViewById(R.id.intensity_dialog));
-		
-		final TextView tv = (TextView) dialogLayout.findViewById(R.id.intensity_tracker);
+
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        final LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+        
+        final View Viewlayout = inflater.inflate(R.layout.intensity, (ViewGroup) findViewById(R.id.intensity_dialog));       
+
+        final TextView tv = (TextView)Viewlayout.findViewById(R.id.intensity_tracker);
+        tv.setText("Intensity");
 		
 		popDialog.setIcon(R.drawable.ic_launcher);
-		popDialog.setTitle("How intense is the emotion?");
-		popDialog.setView(dialogLayout);
+		popDialog.setTitle("Please Select Rank 1-10 ");
+		popDialog.setView(Viewlayout);
 		
-		
-		
-		SeekBar seek = (SeekBar) dialogLayout.findViewById(R.id.seekbar);
+		//  seekBar1
+		SeekBar seek = (SeekBar) Viewlayout.findViewById(R.id.seekbar);
 		seek.setMax(10);
 		seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
-		    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		        mIntensity = progress;
-		        tv.setText("Intensity: " + progress);
-		    }
+		        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+		        	tv.setText("Intensity: " + progress);
+		        	mIntensity = progress;
+		        }
 
-			public void onStartTrackingTouch(SeekBar arg0) {
-				// TODO Auto-generated method stub				
-			}
+				public void onStartTrackingTouch(SeekBar arg0) {
+					// TODO Auto-generated method stub
+					
+				}
 
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub	
-			}
-		});
-		 
+				public void onStopTrackingTouch(SeekBar seekBar) {
+					// TODO Auto-generated method stub
+					
+				}
+		    });
 
 		// Button OK
 		popDialog.setPositiveButton("OK",
-			new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
-			});
-
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						loadList(TRIGGER);
+						dialog.dismiss();
+					}
+				});
+		
+		popDialog.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						loadList(EMOTION);
+						dialog.dismiss();
+					}
+				});
+		
+		popDialog.setNeutralButton("Skip Intensity",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						mIntensity = 0;
+						loadList(TRIGGER);
+						dialog.dismiss();
+					}
+				});
 		popDialog.create();
-		popDialog.show();       
+		popDialog.show();    
 	}
+	
 }
